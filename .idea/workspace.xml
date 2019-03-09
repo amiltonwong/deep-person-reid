@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80df6996-3781-46b9-88fa-2fc809aeb042" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/ResNeXt.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ResNeXt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/ResNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ResNet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_img_model_xent.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_img_model_xent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/transforms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/losses.py" beforeDir="false" afterPath="$PROJECT_DIR$/losses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/samplers.py" beforeDir="false" afterPath="$PROJECT_DIR$/samplers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_img_model_xent_htri.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_img_model_xent_htri.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,12 +26,58 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/samplers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="645">
+              <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/losses.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="426">
+              <caret line="101" column="79" selection-start-line="101" selection-start-column="79" selection-end-line="101" selection-end-column="79" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/envs/pytorch1.0/lib/python3.6/site-packages/torch/nn/modules/loss.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="1001" column="19" selection-start-line="1001" selection-start-column="12" selection-end-line="1001" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/ResNet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train_img_model_xent_htri.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="531">
+              <caret line="251" column="25" selection-start-line="251" selection-start-column="25" selection-end-line="251" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#54#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,9 +92,10 @@
       <find>embed</find>
       <find>print</find>
       <find>keys</find>
-      <find>save</find>
       <find>args.save_dir</find>
       <find>save_dir</find>
+      <find>save</find>
+      <find>ranking</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -61,12 +105,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/transforms.py" />
-        <option value="$PROJECT_DIR$/losses.py" />
         <option value="$PROJECT_DIR$/models/ResNeXt.py" />
         <option value="$PROJECT_DIR$/data_manager.py" />
         <option value="$PROJECT_DIR$/dataset_loader.py" />
         <option value="$PROJECT_DIR$/models/ResNet.py" />
         <option value="$PROJECT_DIR$/train_img_model_xent.py" />
+        <option value="$PROJECT_DIR$/samplers.py" />
+        <option value="$PROJECT_DIR$/train_img_model_xent_htri.py" />
+        <option value="$PROJECT_DIR$/losses.py" />
       </list>
     </option>
   </component>
@@ -136,20 +182,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1551887262732</updated>
-      <workItem from="1551887264543" duration="34554000" />
+      <workItem from="1551887264543" duration="48326000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34554000" />
+    <option name="totallyTimeSpent" value="48326000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4984326" visible="true" weight="0.2498618" />
-      <window_info id="Structure" order="2" sideWeight="0.5015674" side_tool="true" visible="true" weight="0.2498618" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4984326" visible="true" weight="0.2498618" />
+      <window_info active="true" id="Structure" order="2" sideWeight="0.5015674" side_tool="true" visible="true" weight="0.2498618" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
@@ -196,15 +242,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train_img_model_ring.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train_img_model_xent_htri.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
@@ -265,16 +302,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/losses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/optimizers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -286,36 +313,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2148">
           <caret line="1471" column="13" selection-start-line="1471" selection-start-column="8" selection-end-line="1471" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2027">
-          <caret line="1089" column="72" selection-start-line="1089" selection-start-column="72" selection-end-line="1089" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset_loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/ResNet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -344,7 +341,65 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/samplers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="645">
+          <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/ResNet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_img_model_xent_htri.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="251" column="25" selection-start-line="251" selection-start-column="25" selection-end-line="251" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/pytorch1.0/lib/python3.6/site-packages/torch/nn/modules/loss.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="1001" column="19" selection-start-line="1001" selection-start-column="12" selection-end-line="1001" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/losses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="101" column="79" selection-start-line="101" selection-start-column="79" selection-end-line="101" selection-end-column="79" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>

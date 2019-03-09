@@ -25,7 +25,7 @@ from optimizers import init_optim
 
 parser = argparse.ArgumentParser(description='Train image model with cross entropy loss and hard triplet loss')
 # Datasets
-parser.add_argument('--root', type=str, default='data', help="root path to data directory")
+parser.add_argument('--root', type=str, default='/data2', help="root path to data directory")
 parser.add_argument('-d', '--dataset', type=str, default='market1501',
                     choices=data_manager.get_names())
 parser.add_argument('-j', '--workers', default=4, type=int,
@@ -44,7 +44,7 @@ parser.add_argument('--use-metric-cuhk03', action='store_true',
                     help="whether to use cuhk03-metric (default: False)")
 # Optimization options
 parser.add_argument('--optim', type=str, default='adam', help="optimization algorithm (see optimizers.py)")
-parser.add_argument('--max-epoch', default=180, type=int,
+parser.add_argument('--max-epoch', default=150, type=int, # default = 180
                     help="maximum epochs to run")
 parser.add_argument('--start-epoch', default=0, type=int,
                     help="manual epoch number (useful on restarts)")
@@ -53,17 +53,18 @@ parser.add_argument('--train-batch', default=32, type=int,
 parser.add_argument('--test-batch', default=32, type=int, help="test batch size")
 parser.add_argument('--lr', '--learning-rate', default=0.0003, type=float,
                     help="initial learning rate")
-parser.add_argument('--stepsize', default=60, type=int,
+parser.add_argument('--stepsize', default=50, type=int, # default=60
                     help="stepsize to decay learning rate (>0 means this is enabled)")
 parser.add_argument('--gamma', default=0.1, type=float,
                     help="learning rate decay")
 parser.add_argument('--weight-decay', default=5e-04, type=float,
                     help="weight decay (default: 5e-04)")
+# # triplet hard loss
 parser.add_argument('--margin', type=float, default=0.3, help="margin for triplet loss")
 parser.add_argument('--num-instances', type=int, default=4,
                     help="number of instances per identity")
 parser.add_argument('--htri-only', action='store_true', default=False,
-                    help="if this is True, only htri loss is used in training")
+                    help="if this is True, only htri loss is used in training") # only use triplet loss
 # Architecture
 parser.add_argument('-a', '--arch', type=str, default='resnet50', choices=models.get_names())
 # Miscs
@@ -204,9 +205,15 @@ def main():
     print("Finished. Total elapsed time (h:m:s): {}. Training time (h:m:s): {}.".format(elapsed, train_time))
 
 def train(epoch, model, criterion_xent, criterion_htri, optimizer, trainloader, use_gpu):
+
     losses = AverageMeter()
     batch_time = AverageMeter()
     data_time = AverageMeter()
+    # add two meters
+    xent_losses = AverageMeter()
+    htri_losses = AverageMeter()
+    #global_losses = AverageMeter()
+    #local_losses = AverageMeter()
 
     model.train()
 
@@ -228,14 +235,14 @@ def train(epoch, model, criterion_xent, criterion_htri, optimizer, trainloader, 
             if isinstance(outputs, tuple):
                 xent_loss = DeepSupervision(criterion_xent, outputs, pids)
             else:
-                xent_loss = criterion_xent(outputs, pids)
+                xent_loss = criterion_xent(outputs, pids) # use this one
             
             if isinstance(features, tuple):
                 htri_loss = DeepSupervision(criterion_htri, features, pids)
             else:
-                htri_loss = criterion_htri(features, pids)
+                htri_loss = criterion_htri(features, pids) # use this one
             
-            loss = xent_loss + htri_loss
+            loss = xent_loss + htri_loss # use this one
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -245,14 +252,18 @@ def train(epoch, model, criterion_xent, criterion_htri, optimizer, trainloader, 
         end = time.time()
 
         losses.update(loss.item(), pids.size(0))
+        xent_losses.update(xent_loss.item(), pids.size(0))
+        htri_losses.update(htri_loss.item(), pids.size(0))
 
         if (batch_idx+1) % args.print_freq == 0:
             print('Epoch: [{0}][{1}/{2}]\t'
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Data {data_time.val:.3f} ({data_time.avg:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'.format(
+                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+                  'CLoss {xent_loss.val:.4f} ({xent_loss.avg:.4f})\t'
+                  'MLoss {htri_loss.val:.4f} ({htri_loss.avg:.4f})\t'.format(
                    epoch+1, batch_idx+1, len(trainloader), batch_time=batch_time,
-                   data_time=data_time, loss=losses))
+                   data_time=data_time, loss=losses, xent_loss=xent_losses, htri_loss=htri_losses))
 
 
 def test(model, queryloader, galleryloader, use_gpu, ranks=[1, 5, 10, 20]):
