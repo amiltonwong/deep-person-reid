@@ -1,6 +1,6 @@
 from __future__ import print_function, absolute_import
 import os
-from PIL import Image
+from PIL import Image # pytorch use PIL.Image to read images by default
 import numpy as np
 import os.path as osp
 
@@ -22,9 +22,10 @@ def read_image(img_path):
             pass
     return img
 
+# Subclass "Dataset" abstract class
 class ImageDataset(Dataset):
     """Image Person ReID Dataset"""
-    def __init__(self, dataset, transform=None):
+    def __init__(self, dataset, transform=None): # ignore any transform at first
         self.dataset = dataset
         self.transform = transform
 
@@ -37,6 +38,14 @@ class ImageDataset(Dataset):
         if self.transform is not None:
             img = self.transform(img)
         return img, pid, camid
+
+if __name__ == '__main__':
+    import data_manager
+    dataset = data_manager.init_img_dataset(root='/data2', name='market1501')
+    train_loader = ImageDataset(dataset.train)
+    from IPython import embed
+    #embed()
+
 
 class VideoDataset(Dataset):
     """Video Person ReID Dataset.

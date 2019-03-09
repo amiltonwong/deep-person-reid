@@ -28,8 +28,9 @@ class Random2DTranslation(object):
         Returns:
             PIL Image: Cropped image.
         """
-        if random.random() < self.p:
+        if random.random() < self.p: # directly resize as desired size
             return img.resize((self.width, self.height), self.interpolation)
+        # First enlarge as 1.125x, then randomly cropped
         new_width, new_height = int(round(self.width * 1.125)), int(round(self.height * 1.125))
         resized_img = img.resize((new_width, new_height), self.interpolation)
         x_maxrange = new_width - self.width
@@ -40,4 +41,26 @@ class Random2DTranslation(object):
         return croped_img
 
 if __name__ == '__main__':
-    pass
+    img = Image.open('/data2/market1501/bounding_box_train/0002_c1s1_000451_03.jpg')
+    transform = Random2DTranslation(height=256, width=128, p=0.5)
+    #img_t = transform(img)
+
+    # use another transform: append RandomHorizontalFlip
+    from torchvision import transforms
+    transform2 = transforms.Compose(
+        [
+            Random2DTranslation(height=256, width=128, p=0.5),
+            transforms.RandomHorizontalFlip(0.5),
+        ]
+
+    )
+    img_t = transform2(img)
+
+    import matplotlib.pyplot as plt
+
+    plt.figure(12)
+    plt.subplot(121)
+    plt.imshow(img)
+    plt.subplot(122)
+    plt.imshow(img_t)
+    plt.show()

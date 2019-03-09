@@ -14,6 +14,10 @@ from scipy.misc import imsave
 
 from utils import mkdir_if_missing, write_json, read_json
 
+from IPython import embed
+
+
+
 """Image ReID"""
 
 class Market1501(object):
@@ -31,15 +35,17 @@ class Market1501(object):
     """
     dataset_dir = 'market1501'
 
-    def __init__(self, root='data', **kwargs):
+    def __init__(self, root='/data2', **kwargs):  # **kwargs: optional extra arguments
         self.dataset_dir = osp.join(root, self.dataset_dir)
         self.train_dir = osp.join(self.dataset_dir, 'bounding_box_train')
         self.query_dir = osp.join(self.dataset_dir, 'query')
         self.gallery_dir = osp.join(self.dataset_dir, 'bounding_box_test')
 
         self._check_before_run()
-
-        train, num_train_pids, num_train_imgs = self._process_dir(self.train_dir, relabel=True)
+        # get [(img_path, pid, camid)], num_pids, num_imgs
+        train, num_train_pids, num_train_imgs = self._process_dir(self.train_dir, relabel=True) # num_train_pids=751, num_train_imgs=12936
+        #embed()
+        # query and gallery are used for test
         query, num_query_pids, num_query_imgs = self._process_dir(self.query_dir, relabel=False)
         gallery, num_gallery_pids, num_gallery_imgs = self._process_dir(self.gallery_dir, relabel=False)
         num_total_pids = num_train_pids + num_query_pids
@@ -77,17 +83,25 @@ class Market1501(object):
             raise RuntimeError("'{}' is not available".format(self.gallery_dir))
 
     def _process_dir(self, dir_path, relabel=False):
-        img_paths = glob.glob(osp.join(dir_path, '*.jpg'))
-        pattern = re.compile(r'([-\d]+)_c(\d)')
+        # access img_paths, annotation(ID, CAMID), num_img
 
-        pid_container = set()
+        img_paths = glob.glob(osp.join(dir_path, '*.jpg'))
+        #embed()
+
+        pattern = re.compile(r'([-\d]+)_c(\d)') # use regrex
+
+        pid_container = set() # remove repetition
+        # read person-ID
         for img_path in img_paths:
             pid, _ = map(int, pattern.search(img_path).groups())
             if pid == -1: continue  # junk images are just ignored
             pid_container.add(pid)
-        pid2label = {pid:label for label, pid in enumerate(pid_container)}
+        #embed()
+        pid2label = {pid:label for label, pid in enumerate(pid_container)} # obtain person-ID: 0 to 750
 
         dataset = []
+
+        # read camera-ID
         for img_path in img_paths:
             pid, camid = map(int, pattern.search(img_path).groups())
             if pid == -1: continue  # junk images are just ignored
@@ -100,6 +114,9 @@ class Market1501(object):
         num_pids = len(pid_container)
         num_imgs = len(dataset)
         return dataset, num_pids, num_imgs
+
+if __name__ == '__main__':
+    data = Market1501(root='/data2')
 
 class CUHK03(object):
     """
@@ -1089,7 +1106,7 @@ __vid_factory = {
 }
 
 def get_names():
-    return __img_factory.keys() + __vid_factory.keys()
+    return list(__img_factory.keys()) + list(__vid_factory.keys())
 
 def init_img_dataset(name, **kwargs):
     if name not in __img_factory.keys():
